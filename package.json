@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.10.2",
+    "djs-commander": "^0.0.45",
     "dotenv": "^16.0.3",
     "mongoose": "^7.1.0",
-    "node": "^20.0.0"
+    "node": "^20.0.0",
+    "path": "^0.12.7"
   }
 }
