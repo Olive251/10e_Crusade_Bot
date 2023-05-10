@@ -4,7 +4,7 @@ const {Crusade} = require('../../data/schemas');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('list-crusades')
-        .setDescription(`'Generate a report display the server's crusades`),
+        .setDescription(`Generate a report display the server's crusades`),
     run: async ({interaction}) => {
         await interaction.deferReply();
         try{
