@@ -13,6 +13,30 @@ const commands = [
                 required: true,
             }
         ]
+    }, 
+    {
+        name: 'new-crusade',
+        description: 'register a new crusade for your server',
+        options: [
+            {
+                name: 'crusade-name',
+                description: 'The name of your crusade',
+                type: ApplicationCommandOptionType.String,
+                required: true,
+            },
+        ]
+    },
+    {
+        name: 'find-crusade',
+        description: 'get summary information of a crusade',
+        options: [
+            {
+                name: 'crusade-name',
+                description: 'The name of the crusade you want information on',
+                type: ApplicationCommandOptionType.String,
+            }
+        ]
+        
     },
 
 ]
