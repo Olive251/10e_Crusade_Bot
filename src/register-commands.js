@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {REST, Routes, ApplicationCommandOptionType} = require('discord.js');
+const {REST, Routes, ApplicationCommandOptionType, Application} = require('discord.js');
 
 const commands = [
     {
@@ -34,10 +34,27 @@ const commands = [
                 name: 'crusade-name',
                 description: 'The name of the crusade you want information on',
                 type: ApplicationCommandOptionType.String,
+                required: true,
             }
         ]
         
     },
+    {
+        name: 'list-crusades',
+        description: `get a summary list of your server's crusades`,
+    },
+    {
+        name: 'remove-crusade',
+        description: `remove a crusade from your server`,
+        options: [
+            {
+                name: 'crusade-name',
+                description: 'The name of the crusade you want to remove',
+                type: ApplicationCommandOptionType.String,
+                required: true,
+            },
+        ]
+    }
 
 ]
 

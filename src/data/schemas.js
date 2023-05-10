@@ -3,30 +3,32 @@ var mongoose = require('mongoose'),
 
 const unitSchema = new Schema({
     name: String,
+    crusadePoints: Number,
     xp: Number,
     killCount: Number,
 })
 
 const orderOfBattleSchema = new Schema({
     name: String,
-    oobID: String,
     units: [unitSchema],
     tally: {w: Number, l: Number},
-    guildID: String,
-    userID: String,
+    guildID: Number,
+    userID: Number,
 })
 
 const allianceSchema = new Schema({
     name: String,
     allianceID: String,
     forces: [String],
-    guildID: String,
-    members: [String],
+    guildID: Number,
+    members: [Number],
 })
 
 const crusadeSchema = new Schema({
     name: String,
     guildID: Number,
+    description: String,
+    players: [Number],
     alliances: [allianceSchema]
 })
 
