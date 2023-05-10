@@ -1,4 +1,4 @@
-const {SlashCommandBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder} = require('discord.js');
 const {Crusade} = require('../../data/schemas');
 
 module.exports = {
@@ -9,18 +9,27 @@ module.exports = {
         await interaction.deferReply();
         try{
             let crusades = await Crusade.find({guildID: interaction.guildId});
-            let message = '';
+            
+            //embed creation
+            const embed = new EmbedBuilder()
+                .setTitle(`Crusades Report`)
+                .setDescription(`Crusades available on the ${interaction.guild.name} server`)
+                .setColor('Random');
+            
             for (const crusade of crusades){
-                message += `🔸 ${crusade.name}\n`;
+                embed.addFields(
+                    {name: `🔸 ${crusade.name}`, value: ' '}
+                )
             }
-            if (message.length > 0) 
-                interaction.editReply(message);
+
+            if (crusades) 
+                interaction.editReply({embeds: [embed]});
             else
                 interaction.editReply(`❗ There are no active crusades for this server`)
 
         } catch (err){
-            console.log(`Error in listCrusades`);
-            interaction.editReply(`It appears there are no active crusades for this server`);
+            console.log(`Error in listCrusades\n ${err}`);
+            interaction.editReply(`A problem occured generating crusades report`);
         }
     }
 }

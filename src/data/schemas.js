@@ -29,7 +29,8 @@ const crusadeSchema = new Schema({
     guildID: Number,
     description: String,
     players: [Number],
-    alliances: [allianceSchema]
+    alliances: [allianceSchema],
+    externalCrusadeDoc: String,
 })
 
 var Unit = mongoose.model('Unit', unitSchema);
