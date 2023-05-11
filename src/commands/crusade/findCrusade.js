@@ -1,4 +1,4 @@
-const {SlashCommandBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const {Crusade} = require('../../data/schemas');
 
 module.exports = {
@@ -16,11 +16,36 @@ module.exports = {
             let crusade = await Crusade.findOne({name: interaction.options.get('name').value, guildID: interaction.guildId});
             if (!crusade){
                 interaction.editReply(`❗ Unable to find "${interaction.options.get('name').value}" among this server's crusades`);
+                return;
             }
-            interaction.editReply(`${crusade.name}`);
+            
+            const embed = new EmbedBuilder()
+                .setTitle(crusade.name)
+                .setDescription(crusade.description || `description`)
+                .setColor('Random')
+            
+            // TODO: update to show username
+            // probably best to make a helper for this
+            if (crusade.players.length > 0){
+                embed.addFields(
+                    {name: 'Players', value: `${crusade.players}`}
+                );
+            }
+            // TODO
+            // add functionality to show alliances if there are any
+
+            // TODO
+            // link to crusade doc
+
+            // TODO
+            // buttons to join/leave
+
+            console.log(crusade.name);
+            interaction.editReply({embeds: [embed]});
 
         } catch (err){
             console.log(`ERROR: crusade-info\n  ${err}`);
+            interaction.editReply(`++A problem occurred communing with the machine spirits++`);
         }
     }
 }
