@@ -35,6 +35,9 @@ module.exports = {
             // add functionality to show alliances if there are any
 
             // TODO
+            // add functionality to create add a new alliance to the crusade
+
+            // TODO
             // link to crusade doc
 
             // TODO
