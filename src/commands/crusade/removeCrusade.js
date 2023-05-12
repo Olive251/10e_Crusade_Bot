@@ -11,11 +11,20 @@ module.exports = {
                 .setDescription('The name of the crusade you wish to remove')
             ),
     run: async ({interaction}) => {
+        let cName = interaction.options.get('name').value;
         try{
-            await Crusade.deleteOne({name: interaction.options.get('name').value, guildID: interaction.guildId})
 
-            if (!await Crusade.findOne({name: interaction.options.get('name').value, guildID: interaction.guildId})){
-                interaction.reply('✅ Crusade successfully removed!');
+            if (!await Crusade.findOne({name: cName, guildID: interaction.guildId})){
+                interaction.reply(`❗ ${cName} was not found in the server records`);
+                return;
+            }
+
+            await Crusade.deleteOne({name: cName, guildID: interaction.guildId})
+
+            //TODO change output if crusade does not exist
+            //current implementation gives success message in this case
+            if (!await Crusade.findOne({name: cName, guildID: interaction.guildId})){
+                interaction.reply(`✅ ${cName} successfully removed`);
             } else {
                 interaction.reply(`❗ There was a problem removing the crusade`)
             }

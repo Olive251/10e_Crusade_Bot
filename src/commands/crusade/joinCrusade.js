@@ -34,10 +34,10 @@ module.exports = {
             crusade.players.push(user.id);
             await Crusade.updateOne({_id:crusade._id}, {players: crusade.players});
 
-            interaction.editReply(`You have sucessfully joined the ${crusade.name}!`);
+            interaction.editReply(`✅ - You have sucessfully joined the ${crusade.name}!`);
         }
         else {
-            interaction.editReply(`You're already in the ${crusade.name}, you silly goose!`);
+            interaction.editReply(`❗ - You're already in the ${crusade.name}, you silly goose!`);
         }
         
     }

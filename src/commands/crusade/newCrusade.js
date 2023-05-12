@@ -1,12 +1,14 @@
 const {SlashCommandBuilder} = require('discord.js');
 const {Crusade} = require('../../data/schemas');
 
-const register_crusade = async(name, guildId) => {
+//helper to save the data
+const register_crusade = async(name, guildId, tagline, docs = '') => {
     try {
         const newCrusade = new Crusade({
           name,
           guildID: guildId,
-          description: '',
+          description: tagline || '',
+          externalCrusadeDoc: docs || '',
           alliances: []
         });
         const savedCrusade = await newCrusade.save();
@@ -25,12 +27,25 @@ module.exports = {
             option.setName('name')
                 .setRequired(true)
                 .setDescription('The name of the crusade you wish to create')
-            ),
+            )
+        .addStringOption(option =>
+            option.setName('tagline')
+                .setRequired(true)
+                .setDescription('A sentence or two introduction to the crusade'))
+        .addStringOption(option =>
+            option.setName('external-doc')
+                .setRequired(false)
+                .setDescription('A link to share any additional documentation for the crusade')),
     run: async ({interaction}) => {
-        var crusade;
+        var crusade;                  
         try{
-            crusade = await register_crusade(interaction.options.get('name').value, interaction.guildId);
-            interaction.reply(`${crusade.name} was successfully created!`);
+            crusade = await register_crusade(
+                interaction.options.get('name').value, 
+                interaction.guildId, 
+                interaction.options.get('tagline').value,
+                interaction.options.get('external-doc').value,
+                );
+            interaction.reply(`✅ ${crusade.name} was successfully created!`);
         } catch (err){
             interaction.reply('❗ Unable to create new crusade');
         }

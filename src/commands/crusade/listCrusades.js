@@ -18,11 +18,13 @@ module.exports = {
 
             const optRow = new ActionRowBuilder();
             
+            //POSSIBILITY: Dropping the list and only showing the buttons
             for (const crusade of crusades){
                 embed.addFields(
                     {name: `🔸 ${crusade.name}`, value: ' '}
                 )
-
+                
+                //buttons to access details of crusades
                 optRow.addComponents(
                     new ButtonBuilder()
                     .setCustomId(crusade.name.toLowerCase() + '-selector')
