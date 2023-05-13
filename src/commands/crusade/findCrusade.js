@@ -1,5 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require('discord.js');
 const {Crusade} = require('../../data/schemas');
+const isUserInCrusade = require ('../../helpers/isUserInCrusade.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
 
             //Check that crusade was correctly acquired
             if (!crusade){
-                interaction.editReply(`❗ Unable to find "${interaction.options.get('name').value}" among this server's crusades`);
+                interaction.editReply(`❗ - Unable to find "${interaction.options.get('name').value}" among this server's crusades`);
                 return;
             }
             
@@ -63,14 +64,34 @@ module.exports = {
                     {name: 'Crusade Document', value: 'No document has been linked'}
                 )
             }
+            const optRow = new ActionRowBuilder()
+            // TODO
+            // buttons to join/leave
+            if (!isUserInCrusade(crusade, interaction.user)){
+                optRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel('Join Crusade')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId('join_crusade')
+                )
+            }
+            else{
+                optRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel('Leave Crusade')
+                    .setStyle(ButtonStyle.Danger)
+                    .setCustomId('leave_crusade')
+                )
+            }
 
             // TODO
             // add functionality to create & add a new alliance to the crusade
 
-            // TODO
-            // buttons to join/leave
+            
+            
+            
 
-            interaction.editReply({embeds: [embed]});
+            interaction.editReply({embeds: [embed], components: [optRow]});
 
         } catch (err){
             console.log(`ERROR: crusade-info\n  ${err}`);

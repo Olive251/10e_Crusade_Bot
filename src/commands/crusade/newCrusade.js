@@ -2,7 +2,7 @@ const {SlashCommandBuilder} = require('discord.js');
 const {Crusade} = require('../../data/schemas');
 
 //helper to save the data
-const register_crusade = async(name, guildId, tagline, docs = '') => {
+const register_crusade = async(name, guildId, tagline, docs) => {
     try {
         const newCrusade = new Crusade({
           name,
@@ -39,14 +39,22 @@ module.exports = {
     run: async ({interaction}) => {
         var crusade;                  
         try{
+
+            var doc = '';
+            console.log('!')
+            if (interaction.options.get('external-doc')){
+                doc = interaction.options.get('external-doc').value;
+            }
+
             crusade = await register_crusade(
                 interaction.options.get('name').value, 
                 interaction.guildId, 
                 interaction.options.get('tagline').value,
-                interaction.options.get('external-doc').value,
+                doc,
                 );
             interaction.reply(`✅ ${crusade.name} was successfully created!`);
         } catch (err){
+            console.log(`Error creating new crusade:\n ${err}`);
             interaction.reply('❗ Unable to create new crusade');
         }
         return crusade;
