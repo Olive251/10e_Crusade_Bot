@@ -11,6 +11,6 @@ module.exports = async (crusade, userId) => {
         console.log(`Error adding user to crusade:\n${err}`);
     }
 
-
-    //return crusade.players.includes(userId);
+    crusade = await Crusade.findOne({_id: crusade._id});
+    return crusade.players.includes(userId);
 }
