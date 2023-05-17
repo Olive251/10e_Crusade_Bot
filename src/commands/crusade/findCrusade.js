@@ -80,7 +80,7 @@ module.exports = {
                     new ButtonBuilder()
                     .setLabel('Leave Crusade')
                     .setStyle(ButtonStyle.Danger)
-                    .setCustomId('leave_crusade')
+                    .setCustomId(`leave_crusade_${crusade._id}`)
                 )
             }
 

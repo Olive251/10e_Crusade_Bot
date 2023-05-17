@@ -41,7 +41,6 @@ module.exports = {
         try{
 
             var doc = '';
-            console.log('!')
             if (interaction.options.get('external-doc')){
                 doc = interaction.options.get('external-doc').value;
             }
