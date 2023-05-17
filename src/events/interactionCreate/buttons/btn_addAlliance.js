@@ -1,6 +1,5 @@
 const {ModalBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle} = require('discord.js');
 const {Crusade} = require('../../../data/schemas.js');
-const addAllianceToCrusade = require('../../../helpers/addAllianceToCrusade.js');
 
 module.exports = async (interaction) => {
     if (!interaction.isButton()) return;
