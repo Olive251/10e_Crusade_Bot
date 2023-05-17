@@ -19,7 +19,7 @@ const orderOfBattleSchema = new Schema({
 const allianceSchema = new Schema({
     name: String,
     forces: [String],
-    members: [Number],
+    //members: [Number], //may trash, just including OOB
 })
 
 const crusadeSchema = new Schema({
