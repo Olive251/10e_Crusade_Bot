@@ -18,8 +18,6 @@ module.exports = async (interaction, crusade) => {
         .setColor('Random')
             
         //List players in the campaign
-        // TODO: update to show username
-        // probably best to make a helper for this
         if (crusade.players.length > 0){
             let playerNames = [];
             for (userId of crusade.players){
@@ -78,6 +76,10 @@ module.exports = async (interaction, crusade) => {
                 .setCustomId(`leave_crusade_${crusade._id}`)
             )
         }
+
+        // TODO
+        // add functionality to create & add a new alliance to the crusade
+
 
         interaction.editReply({embeds: [embed], components: [optRow]});
 

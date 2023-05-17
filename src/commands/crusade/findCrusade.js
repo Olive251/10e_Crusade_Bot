@@ -16,11 +16,6 @@ module.exports = {
             let crusade = await Crusade.findOne({name: interaction.options.get('name').value, guildID: interaction.guildId});
 
             generateCrusadeReport(interaction, crusade);
-         
-
-            // TODO
-            // add functionality to create & add a new alliance to the crusade
-
 
         } catch (err){
             console.log(`ERROR: crusade-info\n  ${err}`);
