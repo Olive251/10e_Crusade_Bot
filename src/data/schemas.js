@@ -18,9 +18,7 @@ const orderOfBattleSchema = new Schema({
 
 const allianceSchema = new Schema({
     name: String,
-    allianceID: String,
     forces: [String],
-    guildID: Number,
     members: [Number],
 })
 

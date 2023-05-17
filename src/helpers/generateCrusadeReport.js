@@ -1,5 +1,4 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
-const {Crusade} = require ('../data/schemas.js');
 const isUserInCrusade = require('./isUserInCrusade.js');
 const getUserInfo = require('./getUserInfo.js');
 
@@ -36,9 +35,14 @@ module.exports = async (interaction, crusade) => {
         }
         
         //Show alliances
+        //puts the alliances in a string for readability in embed
         if (crusade.alliances.length > 0){
+            let alliances = '';
+            for (alliance of crusade.alliances){
+                alliances += `- ${alliance.name}\n`
+            }
             embed.addFields(
-                {name: 'Alliances', value: `${crusade.alliances}`}
+                {name: 'Alliances', value: alliances}
             )
         } else {
             embed.addFields(
@@ -77,9 +81,12 @@ module.exports = async (interaction, crusade) => {
             )
         }
 
-        // TODO
-        // add functionality to create & add a new alliance to the crusade
-
+        optRow.addComponents(
+            new ButtonBuilder()
+            .setLabel('Add Alliance')
+            .setStyle(ButtonStyle.Primary)
+            .setCustomId(`add_alliance_${crusade._id}`)
+        )
 
         interaction.editReply({embeds: [embed], components: [optRow]});
 
