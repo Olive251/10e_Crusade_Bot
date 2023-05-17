@@ -27,7 +27,7 @@ module.exports = {
                 //buttons to access details of crusades
                 optRow.addComponents(
                     new ButtonBuilder()
-                    .setCustomId(crusade.name.toLowerCase() + '-selector')
+                    .setCustomId('view_crusade_' + crusade._id)
                     .setLabel(crusade.name)
                     .setStyle(ButtonStyle.Primary),
                 )
