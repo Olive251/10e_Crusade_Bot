@@ -72,7 +72,7 @@ module.exports = {
                     new ButtonBuilder()
                     .setLabel('Join Crusade')
                     .setStyle(ButtonStyle.Primary)
-                    .setCustomId('join_crusade')
+                    .setCustomId(`join_crusade_${crusade._id}`)
                 )
             }
             else{
