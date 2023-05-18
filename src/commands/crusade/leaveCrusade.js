@@ -10,7 +10,7 @@ module.exports = {
             .setDescription('Name of the crusade you wish to leave')
             ),
     run: async ({interaction}) => {
-        await interaction.deferReply();
+        await interaction.deferReply({ephemeral: true});
         try{
             let crusadeName = interaction.options.get('crusade-name').value;
             if (!crusadeName){

@@ -6,7 +6,7 @@ module.exports = {
         .setName('list-crusades')
         .setDescription(`Generate a report display the server's crusades`),
     run: async ({interaction}) => {
-        await interaction.deferReply();
+        await interaction.deferReply({ephemeral: true});
         try{
             let crusades = await Crusade.find({guildID: interaction.guildId});
             
@@ -14,7 +14,8 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle(`Crusades Report`)
                 .setDescription(`Crusades available on the ${interaction.guild.name} server`)
-                .setColor('Random');
+                .setColor('Random')
+                .setFooter({text: `Select a crusade to see details`})
 
             const optRow = new ActionRowBuilder();
             

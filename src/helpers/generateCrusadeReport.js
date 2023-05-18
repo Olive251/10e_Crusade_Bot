@@ -2,8 +2,8 @@ const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('
 const isUserInCrusade = require('./isUserInCrusade.js');
 const getUserInfo = require('./getUserInfo.js');
 
-module.exports = async (interaction, crusade) => {
-    await interaction.deferReply();
+module.exports = async (interaction, crusade, ephemeral = true) => {
+    await interaction.deferReply({ephemeral: ephemeral});
 
     if (!crusade){
         interaction.editReply(`❗ - Unable to find "${interaction.options.get('name').value}" among this server's crusades`);
