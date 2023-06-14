@@ -14,6 +14,21 @@ module.exports = async (oobName, guildId, userId) => {
     })
 
     try{
+
+        var oobCheck;
+        try{
+            oobCheck = await OOB.findOne({name: oobName, userID: userId});
+        }
+        catch (err){
+            console.log("??? in createOrderOfBattle");
+        }
+
+        if(oobCheck){
+            console.log('OOB with this name already registered to user');
+            return false;
+            //TODO, add some sort of return value to indicate this specific error
+        }
+
         await newOob.save();
         return true;
     } catch (err) {

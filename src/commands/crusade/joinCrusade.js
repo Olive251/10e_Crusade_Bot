@@ -38,6 +38,7 @@ module.exports = {
         }
         else {
             interaction.editReply(`❗ - You're already in the ${crusade.name}, you silly goose!`);
+            //TODO - Need to move the checking functionality too the to the addUserToCrusade.js
         }
         
     }

@@ -1,8 +1,7 @@
 const {Crusade} = require('../data/schemas.js');
 
 module.exports = async (crusade, userId) => {
-    
-    console.log(userId)
+
     crusade.players.push(userId);
 
     try {
