@@ -9,7 +9,6 @@ module.exports = async (option, searchKey, guildId=null) => {
             //     console.log(oob.name);
             // }
             return oobs;
-            break;
         case 2: //crusade
             break;
         case 3: //guild
