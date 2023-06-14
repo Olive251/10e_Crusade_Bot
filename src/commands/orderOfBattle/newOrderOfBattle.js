@@ -1,6 +1,5 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder} = require('discord.js');
-const {Crusade, OOB} = require('../../data/schemas');
-const createOrderOfBattle = require('../../helpers/createOrderOfBattle.js');
+const createOrderOfBattle = require('../../helpers/OrdersOfBattle/createOrderOfBattle.js');
 
 module.exports = {
     data: new SlashCommandBuilder()

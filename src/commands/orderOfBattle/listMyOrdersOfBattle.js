@@ -1,10 +1,10 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder} = require('discord.js');
 const {OOB} = require('../../data/schemas');
-const generateOOBsReport = require('../../helpers/generateOOBsReport.js');
+const generateOOBsReport = require('../../helpers/OrdersOfBattle/generateOOBsReport.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('list-orders-of-battle')
+    .setName('list-my-orders-of-battle')
     .setDescription(`View a list of your orders of battle, those of another users, or those in a specific crusade`),
     run: async({interaction}) => {
         await interaction.deferReply({ephemeral: true});
@@ -21,6 +21,7 @@ module.exports = {
 
         await interaction.editReply(msg);
         return;
+
     }
     
 }

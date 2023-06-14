@@ -1,4 +1,4 @@
-const {OOB} = require ('../data/schemas.js');
+const {OOB} = require ('../../data/schemas.js');
 
 module.exports = async (oobName, guildId, userId) => {
 
