@@ -38,7 +38,7 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
         //puts the alliances in a string for readability in embed
         if (crusade.alliances.length > 0){
             let alliances = '';
-            for (alliance of crusade.alliances){
+            for (const alliance of crusade.alliances){
                 alliances += `- ${alliance.name}\n`
             }
             embed.addFields(
