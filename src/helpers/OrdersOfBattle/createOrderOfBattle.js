@@ -8,9 +8,11 @@ module.exports = async (oobName, guildId, userId) => {
     let newOob = new OOB({
         name: oobName,
         units: [],
-        tally: {w: 0, l: 0},
+        tally: {w: 0, d: 0, l: 0},
         guildID: guildId,
         userID: userId,
+        requisitionPoints: 5,
+        maxSize: 1000,
     })
 
     try{

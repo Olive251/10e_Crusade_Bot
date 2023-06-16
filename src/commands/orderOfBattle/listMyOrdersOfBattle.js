@@ -1,6 +1,6 @@
 const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder} = require('discord.js');
 const {OOB} = require('../../data/schemas');
-const generateOOBsReport = require('../../helpers/OrdersOfBattle/generateOOBsReport.js');
+const generateOOBsReport = require('../../helpers/OrdersOfBattle/generateOOBsList.js');
 
 module.exports = {
     data: new SlashCommandBuilder()

@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 const unitSchema = new Schema({
     name: String,
+    pointsValue: Number,
     crusadePoints: Number,
     xp: Number,
     killCount: Number,
@@ -11,9 +12,13 @@ const unitSchema = new Schema({
 const orderOfBattleSchema = new Schema({
     name: String,
     units: [unitSchema],
-    tally: {w: Number, l: Number},
+    tally: {w: Number, d: Number, l: Number},
     guildID: Number,
     userID: Number,
+    requisitionPoints: Number,
+    maxSize: Number,
+    loreDoc: String,
+
 })
 
 const allianceSchema = new Schema({
