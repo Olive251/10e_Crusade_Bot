@@ -35,7 +35,7 @@ module.exports = async (interaction, oob) => {
         
 
         //buttons
-        const modifyOobRow = new ActionRowBuilder()
+        const modifyTallyRow = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
                 .setLabel('Tally Win')
@@ -51,7 +51,31 @@ module.exports = async (interaction, oob) => {
                 .setCustomId(`add_loss_${oob._id}`)
         )
 
-        interaction.editReply({embeds: [embed], components: [modifyOobRow]});
+        const modifyOobRow = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setLabel('Add RP')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add_rp_${oob._id}`),
+            new ButtonBuilder()
+                .setLabel('Reduce RP')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`reduce_rp_${oob._id}`)
+        )
+
+        const unitsRow = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setLabel('Add Unit')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add_unit_${oob._id}`),
+            new ButtonBuilder()
+                .setLabel('Remove Unit')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`remove_unit_${oob._id}`)
+        )
+
+        interaction.editReply({embeds: [embed], components: [modifyTallyRow, modifyOobRow, unitsRow]});
 
     }
     catch (err) {
