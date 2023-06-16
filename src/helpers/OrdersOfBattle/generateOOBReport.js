@@ -32,7 +32,27 @@ module.exports = async (interaction, oob) => {
         if (oob.loreDoc){
             embed.addFields({name: 'Lore Doc', value:`${oob.loreDoc}`});
         }
-        interaction.editReply({embeds: [embed]});
+        
+
+        //buttons
+        const modifyOobRow = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setLabel('Tally Win')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add_win_${oob._id}`),
+            new ButtonBuilder()
+                .setLabel('Tally Draw')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add_draw_${oob._id}`),
+            new ButtonBuilder()
+                .setLabel('Tally Loss')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add_loss_${oob._id}`)
+        )
+
+        interaction.editReply({embeds: [embed], components: [modifyOobRow]});
+
     }
     catch (err) {
         console.log(`Error in generateOOBReport:\n${err}`);
