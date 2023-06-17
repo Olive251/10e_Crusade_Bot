@@ -54,11 +54,11 @@ module.exports = async (interaction, oob) => {
         const modifyOobRow = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-                .setLabel('Add RP')
+                .setLabel('Add Requisition Point')
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId(`add_rp_${oob._id}`),
             new ButtonBuilder()
-                .setLabel('Reduce RP')
+                .setLabel('Reduce Requisition Points')
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId(`reduce_rp_${oob._id}`)
         )
