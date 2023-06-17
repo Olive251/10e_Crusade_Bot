@@ -9,4 +9,4 @@ With this Crusade Bot those struggles are over.
 
 -All command options are case sensitive!
 
--There are (currently) no confirmations for delete commands, be careful when using them!
+-There are (currently) __no confirmations for delete and removal commands__, so be careful when using them!
