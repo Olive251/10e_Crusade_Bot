@@ -7,7 +7,7 @@ module.exports = async (crusade, userId) => {
         if (crusade.players[i] == userId){
             crusade.players[i] = null;
     
-            if (crusade.players.length > 1){
+            if (crusade.players.length >= 1){
                 crusade.players.splice(i, i-1);
                 await Crusade.updateOne({_id: crusade._id}, {players: crusade.players});
             }
