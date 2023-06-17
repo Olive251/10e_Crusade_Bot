@@ -8,7 +8,6 @@ module.exports = async (oobId, rpChange) => {
         if (!oob) throw('Problem getting OoB from server');
 
         oob.requisitionPoints += rpChange;
-        console.log('' + oob.requisitionPoints);
 
         await OOB.findOneAndUpdate({_id: oobId}, {requisitionPoints: oob.requisitionPoints});
         

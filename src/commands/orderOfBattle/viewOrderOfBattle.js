@@ -5,6 +5,7 @@ const genReport = require('../../helpers/OrdersOfBattle/generateOOBReport.js');
 
 
 module.exports = {
+    //deleted: true,
     data: new SlashCommandBuilder()
     .setName('order-of-battle-info')
     .setDescription(`View one of your Orders of Battle`)
@@ -12,9 +13,22 @@ module.exports = {
         option.setName('name')
         .setRequired(true)
         .setDescription('Name of the crusade you wish to view')
-        ),
+        )
+    .addStringOption(option =>
+        option.setName('hide-report')
+        .setRequired(true)
+        .setDescription('Generate a report visible only to you')
+        .addChoices(
+            {name: `yes`, value: 'y'},
+            {name: `no`, value: `n`},
+        )),
     run: async({interaction}) => {
-        await interaction.deferReply({ephemeral: true});
+
+        if (interaction.options.get(`hide-report`).value === 'y'){
+            await interaction.deferReply({ephemeral: true})
+        } else {
+            await interaction.deferReply({ephemeral: false});
+        }
 
         let user = await interaction.user;
         let guild = await interaction.guildId;

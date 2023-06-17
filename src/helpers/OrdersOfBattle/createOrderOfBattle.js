@@ -22,7 +22,7 @@ module.exports = async (oobName, guildId, userId) => {
             oobCheck = await OOB.findOne({name: oobName, userID: userId});
         }
         catch (err){
-            console.log("??? in createOrderOfBattle");
+            console.log(`Error in create OoB\n${err}`);
         }
 
         if(oobCheck){

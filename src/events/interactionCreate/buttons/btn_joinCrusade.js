@@ -15,7 +15,6 @@ module.exports = async (interaction) => {
             interaction.reply(`❗ - There was a problem joining the ${crusade.name}`)
             return;
         }
-        console.log(interaction.user.id)
 
         let result = addUserToCrusade(crusade, interaction.user.id);
 
