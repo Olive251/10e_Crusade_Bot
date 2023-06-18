@@ -13,22 +13,10 @@ module.exports = {
         option.setName('name')
         .setRequired(true)
         .setDescription('Name of the crusade you wish to view')
-        )
-    .addStringOption(option =>
-        option.setName('hide-report')
-        .setRequired(true)
-        .setDescription('Generate a report visible only to you')
-        .addChoices(
-            {name: `yes`, value: 'y'},
-            {name: `no`, value: `n`},
-        )),
+        ),
     run: async({interaction}) => {
 
-        if (interaction.options.get(`hide-report`).value === 'y'){
-            await interaction.deferReply({ephemeral: true})
-        } else {
-            await interaction.deferReply({ephemeral: false});
-        }
+        await interaction.deferReply({ephemeral: true})
 
         let user = await interaction.user;
         let guild = await interaction.guildId;
@@ -42,10 +30,8 @@ module.exports = {
             await genReport(interaction, oob);
         }
         else {
-            msg = `Unabel to find ${name} in your Orders of Battle`;
+            msg = `Unable to find ${name} in your Orders of Battle`;
         }
-
-        //await interaction.editReply(msg);
     }
     
 }

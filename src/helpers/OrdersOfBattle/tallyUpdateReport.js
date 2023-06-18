@@ -8,7 +8,8 @@ module.exports = async (interaction, oob) => {
         .setDescription(`for ${oob.name}`)
         .setColor(`Random`)
         .addFields(
-            {name: ' ', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
+            //{name: ' ', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
+            {name: 'Win Tally', value: `Wins: ${oob.tally.w} | Losses: ${oob.tally.l}`, inline: false},
         )
         .setFooter({text:`by @${interaction.user.username}`})
 

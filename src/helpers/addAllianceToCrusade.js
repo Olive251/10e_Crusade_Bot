@@ -7,9 +7,9 @@ module.exports = async (crusadeId, allianceName) => {
     try{
         crusade = await Crusade.findOne({_id: crusadeId});
 
-        if (!crusade){
+        if (!crusade || crusade.alliances.length >=5){
             //err
-            return;
+            return false;
         }
         
         let newAlliance = new Alliance({

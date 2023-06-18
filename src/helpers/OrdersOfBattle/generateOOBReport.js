@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
 
-module.exports = async (interaction, oob) => {
+module.exports = async (interaction, oob, buttonsOn=true) => {
     if (!oob){
         interaction.editReply(`❗ - Unable to find "${interaction.options.get('name').value}" in your orders of battle for this server`);
         return;
@@ -13,9 +13,10 @@ module.exports = async (interaction, oob) => {
         .setColor(`Random`)
 
         embed.addFields(
-            {name: 'Win Tally', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
+            //{name: 'Win Tally', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
+            {name: 'Win Tally', value: `Wins: ${oob.tally.w} | Losses: ${oob.tally.l}`, inline: false},
             {name: 'Requisition Points', value:`${oob.requisitionPoints}`, inline:true},
-            {name: 'Order Size', value:`1000/${oob.maxSize}`, inline:true},
+            {name: 'Order Size', value:`0/${oob.maxSize}`, inline:true},
         )
 
         if (oob.units.length > 0){
@@ -35,47 +36,60 @@ module.exports = async (interaction, oob) => {
         
 
         //buttons
-        const modifyTallyRow = new ActionRowBuilder()
-        .addComponents(
-            new ButtonBuilder()
-                .setLabel('Tally Win')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`add_win_${oob._id}`),
-            new ButtonBuilder()
-                .setLabel('Tally Draw')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`add_draw_${oob._id}`),
-            new ButtonBuilder()
-                .setLabel('Tally Loss')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`add_loss_${oob._id}`)
-        )
-
-        const modifyOobRow = new ActionRowBuilder()
-        .addComponents(
-            new ButtonBuilder()
-                .setLabel('+1 Requisition Points')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`add_rp_${oob._id}`),
-            new ButtonBuilder()
-                .setLabel('-1 Requisition Points')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`reduce_rp_${oob._id}`)
-        )
-
-        const unitsRow = new ActionRowBuilder()
-        .addComponents(
-            new ButtonBuilder()
-                .setLabel('Add Unit')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`add_unit_${oob._id}`),
-            new ButtonBuilder()
-                .setLabel('Remove Unit')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`remove_unit_${oob._id}`)
-        )
-
-        interaction.editReply({embeds: [embed], components: [modifyTallyRow, modifyOobRow, unitsRow]});
+        if (buttonsOn){
+            const modifyTallyRow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel('Tally Win')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`add_win_${oob._id}`),
+                // new ButtonBuilder()
+                //     .setLabel('Tally Draw')
+                //     .setStyle(ButtonStyle.Primary)
+                //     .setCustomId(`add_draw_${oob._id}`),
+                new ButtonBuilder()
+                    .setLabel('Tally Loss')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`add_loss_${oob._id}`),
+                new ButtonBuilder()
+                    .setLabel('+1 RP')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`add_rp_${oob._id}`),
+                new ButtonBuilder()
+                    .setLabel('-1 RP')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`reduce_rp_${oob._id}`)
+            )
+    
+            // const modifyOobRow = new ActionRowBuilder()
+            // .addComponents(
+            //     new ButtonBuilder()
+            //         .setLabel('+1 RP')
+            //         .setStyle(ButtonStyle.Primary)
+            //         .setCustomId(`add_rp_${oob._id}`),
+            //     new ButtonBuilder()
+            //         .setLabel('-1 RP')
+            //         .setStyle(ButtonStyle.Primary)
+            //         .setCustomId(`reduce_rp_${oob._id}`)
+            // )
+    
+            const unitsRow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel('Add Unit')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`add_unit_${oob._id}`),
+                new ButtonBuilder()
+                    .setLabel('Remove Unit')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`remove_unit_${oob._id}`)
+            )
+    
+            interaction.editReply({embeds: [embed], components: [modifyTallyRow, unitsRow]});
+        }
+        else {
+            interaction.editReply({embeds: [embed]});
+        }
 
     }
     catch (err) {

@@ -18,14 +18,14 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
             
         //List players in the campaign
         if (crusade.players.length > 0){
-            let playerNames = [];
+            let playerNames = '';
             for (userId of crusade.players){
                 let user = await getUserInfo(userId, interaction.guild);
-                playerNames.push(user.username)
+                playerNames += `- ${user.username}\n`
 
             }
             embed.addFields(
-                {name: 'Players', value: `${playerNames}`}
+                {name: 'Players', value: playerNames}
             );
         }
         else {
