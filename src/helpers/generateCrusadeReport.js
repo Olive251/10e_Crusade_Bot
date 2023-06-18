@@ -21,6 +21,7 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
             let playerNames = '';
             for (userId of crusade.players){
                 let user = await getUserInfo(userId, interaction.guild);
+                playerNames +=(user.username + '\n');
                 playerNames += `- ${user.username}\n`
 
             }

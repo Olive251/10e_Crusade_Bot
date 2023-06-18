@@ -2,7 +2,9 @@ const {Crusade} = require('../data/schemas.js');
 
 module.exports = async (crusade, userId) => {
 
-    crusade.players.push(userId);
+    if (!crusade.players.includes(userId)){
+        crusade.players.push(userId);
+    }
 
     try {
         await Crusade.updateOne({_id: crusade._id}, {players: crusade.players});
