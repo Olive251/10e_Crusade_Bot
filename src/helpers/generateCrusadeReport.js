@@ -21,7 +21,6 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
             let playerNames = '';
             for (userId of crusade.players){
                 let user = await getUserInfo(userId, interaction.guild);
-                playerNames +=(user.username + '\n');
                 playerNames += `- ${user.username}\n`
 
             }
@@ -62,34 +61,39 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
                 {name: 'Crusade Document', value: 'No document has been linked'}
             )
         }
-        const optRow = new ActionRowBuilder()
         
         // buttons to join/leave
-        if (!isUserInCrusade(crusade, interaction.user)){
+        if (ephemeral){
+
+            const optRow = new ActionRowBuilder()
+
+            if (!isUserInCrusade(crusade, interaction.user)){
+                optRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel('Join Crusade')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`join_crusade_${crusade._id}`)
+                )
+            }
+            else{
+                optRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel('Leave Crusade')
+                    .setStyle(ButtonStyle.Danger)
+                    .setCustomId(`leave_crusade_${crusade._id}`)
+                )
+            }
             optRow.addComponents(
                 new ButtonBuilder()
-                .setLabel('Join Crusade')
+                .setLabel('Add Alliance')
                 .setStyle(ButtonStyle.Primary)
-                .setCustomId(`join_crusade_${crusade._id}`)
+                .setCustomId(`add_alliance_${crusade._id}`)
             )
-        }
-        else{
-            optRow.addComponents(
-                new ButtonBuilder()
-                .setLabel('Leave Crusade')
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId(`leave_crusade_${crusade._id}`)
-            )
+
+            interaction.editReply({embeds: [embed], components: [optRow]});
         }
 
-        optRow.addComponents(
-            new ButtonBuilder()
-            .setLabel('Add Alliance')
-            .setStyle(ButtonStyle.Primary)
-            .setCustomId(`add_alliance_${crusade._id}`)
-        )
-
-        interaction.editReply({embeds: [embed], components: [optRow]});
+        interaction.editReply({embeds: [embed]});
 
     } catch (err) {
         console.log(`ERROR: crusade-info\n  ${err}`);

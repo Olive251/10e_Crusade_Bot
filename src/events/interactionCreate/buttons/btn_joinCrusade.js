@@ -1,5 +1,7 @@
 const {Crusade} = require('../../../data/schemas.js');
 const addUserToCrusade = require('../../../helpers/addUserToCrusade.js');
+const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
+
 
 module.exports = async (interaction) => {
     if (!interaction.isButton()) return;
@@ -16,10 +18,24 @@ module.exports = async (interaction) => {
             return;
         }
 
-        let result = addUserToCrusade(crusade, interaction.user.id);
+        if (crusade.players.includes(interaction.user))
+        {
+            interaction.reply(`❗ - You have already joined the ${crusade.name}`)
+            return;
+        }
+
+        let result = addUserToCrusade(crusade, interaction.user);
 
         if (result){
-            interaction.reply(`✅ - You have sucessfully joined the ${crusade.name}`);
+            let optRow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                .setLabel('Add OoB')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add_OoB_toCrusade_${crusade._id}`),
+            )
+
+            interaction.reply(`✅ - You have sucessfully joined the ${crusade.name}. You can now add your Order(s) of Battle to the crusade.`);
         } else {
             interaction.reply(`❗ - There was a problem joining the ${crusade.name}`);
         }

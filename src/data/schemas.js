@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
- Schema = mongoose.Schema
+Schema = mongoose.Schema
 
 const unitSchema = new Schema({
     name: String,

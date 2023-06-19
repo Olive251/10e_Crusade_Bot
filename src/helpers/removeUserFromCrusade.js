@@ -8,8 +8,13 @@ module.exports = async (crusade, userId) => {
             crusade.players[i] = null;
     
             if (crusade.players.length >= 1){
-                crusade.players.splice(i, i-1);
-                await Crusade.updateOne({_id: crusade._id}, {players: crusade.players});
+                crusade.players = crusade.players.filter((el) => el !== userId);
+
+                let newPlayers = []
+                for (const player of crusade.players){
+                    if (player) newPlayers.push(player);
+                }
+                await Crusade.updateOne({_id: crusade._id}, {players: newPlayers});
             }
             else {
                 await Crusade.updateOne({_id: crusade._id}, {players: []});

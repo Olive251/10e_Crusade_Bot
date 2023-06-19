@@ -9,8 +9,10 @@ exports.module = (interaction, alliance, crusadeId, buttonsOn=true) => {
     try {
         const embed = EmbedBuilder()
         .setTitle(alliance.name)
-        //.setDescription(`*Alliance in the ${}*`); TODO - put crusade name in desc
         .setColor('Random');
+
+        let pCrusdae = Crusade.findOne({_id: crusadeId});
+        embed.setDescription(`*Alliance in the ${pCrusade.name}*`);
         
         let forcesStr = '';
         let players = [];
@@ -48,6 +50,11 @@ exports.module = (interaction, alliance, crusadeId, buttonsOn=true) => {
                 .setStyle(ButtonStyle.Danger)
                 .setCustomId(`leave_alliance_${crusadeId}_${alliance._id}`)
             }
+
+            interaction.reply({embeds:[embed], components: [optRow]})
+            return;
+        } else {
+            interaction.reply({embed: [embed]});
         }
 
     }
