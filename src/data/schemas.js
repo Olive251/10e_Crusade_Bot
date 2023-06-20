@@ -3,10 +3,15 @@ Schema = mongoose.Schema
 
 const unitSchema = new Schema({
     name: String,
+    type:String,
     pointsValue: Number,
     crusadePoints: Number,
     xp: Number,
     killCount: Number,
+    rank: {
+        type: String,
+        enum: ['Battle-Ready', 'Blooded', 'Battle-Hardened', 'Heroic', 'Legendary']
+    },
 })
 
 const orderOfBattleSchema = new Schema({

@@ -2,7 +2,8 @@ const createOrderOfBattle = require('../../../helpers/OrdersOfBattle/createOrder
 const {Crusade} = require('../../../data/schemas')
 module.exports = async (interaction) => {
     if (!interaction.isModalSubmit()) return;
-    if (!interaction.customId && !interaction.customId.includes('new-oob_')) return;
+    if (!interaction.customId) return;
+    if (!interaction.customId.includes('new-oob_')) return;
 
     cId = interaction.customId.split('_');
     let oobName = await interaction.fields.getTextInputValue(`oob-name-input`);
