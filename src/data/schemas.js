@@ -18,7 +18,7 @@ const orderOfBattleSchema = new Schema({
     requisitionPoints: Number,
     maxSize: Number,
     loreDoc: String,
-
+    allianceMembership: String,
 })
 
 const allianceSchema = new Schema({

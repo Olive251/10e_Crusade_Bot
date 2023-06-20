@@ -19,7 +19,7 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
         //List players in the campaign
         if (crusade.players.length > 0){
             let playerNames = '';
-            for (userId of crusade.players){
+            for (const userId of crusade.players){
                 let user = await getUserInfo(userId, interaction.guild);
                 playerNames += `- ${user.username}\n`
 
@@ -83,14 +83,28 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
                     .setCustomId(`leave_crusade_${crusade._id}`)
                 )
             }
-            optRow.addComponents(
-                new ButtonBuilder()
-                .setLabel('Add Alliance')
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId(`add_alliance_${crusade._id}`)
-            )
 
-            interaction.editReply({embeds: [embed], components: [optRow]});
+            if (!crusade.alliances.length >= 5){
+                optRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel('Add Alliance')
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId(`add_alliance_${crusade._id}`)
+                )
+            }
+            
+            let allianceRow = new ActionRowBuilder();
+            for (const alliance of crusade.alliances){
+                allianceRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel(`👁‍🗨 ${alliance.name}`)
+                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId(`view-alliance_${alliance._id}_${crusade._id}`)
+                )
+            }
+
+
+            interaction.editReply({embeds: [embed], components: [allianceRow,optRow]});
         }
 
         interaction.editReply({embeds: [embed]});
