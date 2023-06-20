@@ -1,4 +1,3 @@
-const {OOB, Alliance, Crusade} = require('../../../data/schemas');
 const addOobToAlliance = require('../../../helpers/Alliance/addOobToAlliance');
 
 module.exports = async (interaction) => {

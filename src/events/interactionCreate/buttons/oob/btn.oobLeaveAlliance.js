@@ -1,4 +1,4 @@
-const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder } = require('discord.js');
 const removeOobFromAlliance = require('../../../../helpers/Alliance/removeOobFromAlliance');
 const {OOB} = require('../../../../data/schemas')
 
@@ -7,7 +7,6 @@ module.exports = async (interaction) => {
     if (!interaction.customId.includes('remove-order_')) return;
 
     let cId = interaction.customId.split('_');
-    console.log(cId);
 
     //get oobs assigned to alliance
     var oobs;
@@ -24,15 +23,15 @@ module.exports = async (interaction) => {
         slct.addOptions(
             new StringSelectMenuOptionBuilder()
             .setLabel(`You have no free orders of battle...`)
-            .setValue(`join-alliance_noObb`)
+            .setValue(`leave-alliance_noObb`)
         )
     }
     else {
-        for (const oob of openOobs){
+        for (const oob of oobs){
             slct.addOptions(
-                new StringSelectMenuBuilder()
+                new StringSelectMenuOptionBuilder()
                 .setLabel(`${oob.name}`)
-                .setValue(`leave-alliance`)
+                .setValue(`leave-alliance_${oob._id}_${cId[2]}_${cId[1]}`) //leave-alliance_oobId_allianceId_crusadeId
             )
         }
     }
@@ -40,10 +39,6 @@ module.exports = async (interaction) => {
     let slRow = new ActionRowBuilder()
     .addComponents(slct);
 
-    await interaction.reply({components: [slRow]});
+    await interaction.reply({content: '`Select order of battle to remove:`', components: [slRow], ephemeral: true});
 
-
-
-
-    //wait removeOobFromAlliance(cId[1], cId[2]);
 }
