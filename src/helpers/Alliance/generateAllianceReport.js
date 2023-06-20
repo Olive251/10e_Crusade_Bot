@@ -31,15 +31,18 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
             
                 let oob = await OOB.findOne({_id: oobId});
     
-                if (!oob) throw('Failed to get Order of Battle from DB');
+                if (!oob){
+                    forcesStr += `- *error retreiving OoB {id: ${oobId}} from databse*`
+                }
+                else {
+                    winCt += oob.tally.w;
+                    lossCt += oob.tally.l;
     
-                winCt += oob.tally.w;
-                lossCt += oob.tally.l;
-
-                let player = await getUserInfo(oob.userID, interaction.guild);
-                players.push(player.user.id);
-    
-                forcesStr += `- ${oob.name}  |  W:${oob.tally.w} L:${oob.tally.l}  |  *@${player.nickname || player.user.username}*\n`;
+                    let player = await getUserInfo(oob.userID, interaction.guild);
+                    players.push(player.user.id);
+        
+                    forcesStr += `- ${oob.name}  |  W:${oob.tally.w} L:${oob.tally.l}  |  *@${player.nickname || player.user.username}*\n`;
+                }
             }
         }
 

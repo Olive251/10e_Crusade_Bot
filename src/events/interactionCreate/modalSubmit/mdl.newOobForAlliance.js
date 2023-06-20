@@ -8,10 +8,9 @@ module.exports = async (interaction) => {
     let oobName = await interaction.fields.getTextInputValue(`oob-name-input`);
     let result = await createOrderOfBattle(oobName, interaction.guild, interaction.user, cId[1], cId[2]);
 
-    console.log(result);
     if (result.result){
-        interaction.reply({content: result.msg, ephemeral: true})
+        interaction.reply({content: result.msg, ephemeral: false})
     } else {
-        interaction.reply(`++Issue communing with the machine spirits++`)
+        interaction.reply({content: `++Issue communing with the machine spirits++`, ephemeral: true})
     }
 }
