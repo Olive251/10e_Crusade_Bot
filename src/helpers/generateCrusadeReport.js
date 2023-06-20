@@ -84,7 +84,7 @@ module.exports = async (interaction, crusade, ephemeral = true) => {
                 )
             }
 
-            if (!crusade.alliances.length >= 5){
+            if (crusade.alliances.length < 5){
                 optRow.addComponents(
                     new ButtonBuilder()
                     .setLabel('Add Alliance')

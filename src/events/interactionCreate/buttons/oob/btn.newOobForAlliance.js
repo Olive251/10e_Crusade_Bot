@@ -5,6 +5,8 @@ module.exports = async (interaction) => {
     if (!interaction.isButton()) return;
     if (!interaction.customId.includes('new-oob_')) return;
 
+    let cId = interaction.customId.split('_');
+
     try{
         let modal = new ModalBuilder()
             .setCustomId(`new-oob_${cId[1]}_${cId[2]}`)

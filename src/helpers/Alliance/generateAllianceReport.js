@@ -91,7 +91,7 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
                     new ButtonBuilder()
                     .setLabel(`Remove Order`)
                     .setStyle(ButtonStyle.Danger)
-                    .setCustomId(`leave-alliance_${crusadeId}_${alliance._id}`)
+                    .setCustomId(`remove-order_${crusadeId}_${alliance._id}`)
                 )
             }
 

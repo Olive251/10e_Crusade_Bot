@@ -2,8 +2,6 @@ const {Crusade, OOB} = require('../../data/schemas');
 
 module.exports = async (oobId, allianceId, crusadeId) => {
 
-    
-
     try{
         let crusade = await Crusade.findOne({_id: crusadeId});
         var alName;

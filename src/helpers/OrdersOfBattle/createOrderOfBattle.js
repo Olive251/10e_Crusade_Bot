@@ -36,7 +36,8 @@ module.exports = async (oobName, guildId, userId, allianceId=null, crusadeId=nul
 
         newOob = await newOob.save();
         if (allianceId && crusadeId){
-            await addOobToAlliance(newOob._id, allianceId, crusadeId);
+            let result = await addOobToAlliance(newOob._id, allianceId, crusadeId);
+            return result;
         }
         return true;
     } catch (err) {
