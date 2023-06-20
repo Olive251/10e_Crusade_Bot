@@ -61,28 +61,16 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                     .setCustomId(`reduce_rp_${oob._id}`)
             )
     
-            // const modifyOobRow = new ActionRowBuilder()
-            // .addComponents(
-            //     new ButtonBuilder()
-            //         .setLabel('+1 RP')
-            //         .setStyle(ButtonStyle.Primary)
-            //         .setCustomId(`add_rp_${oob._id}`),
-            //     new ButtonBuilder()
-            //         .setLabel('-1 RP')
-            //         .setStyle(ButtonStyle.Primary)
-            //         .setCustomId(`reduce_rp_${oob._id}`)
-            // )
-    
             const unitsRow = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setLabel('Add Unit')
                     .setStyle(ButtonStyle.Primary)
-                    .setCustomId(`add_unit_${oob._id}`),
+                    .setCustomId(`add-unit_${oob._id}`),
                 new ButtonBuilder()
                     .setLabel('Remove Unit')
                     .setStyle(ButtonStyle.Primary)
-                    .setCustomId(`remove_unit_${oob._id}`)
+                    .setCustomId(`remove-unit_${oob._id}`)
             )
     
             interaction.editReply({embeds: [embed], components: [modifyTallyRow, unitsRow]});
