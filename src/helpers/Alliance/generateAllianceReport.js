@@ -19,9 +19,8 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
 
         const embed = new EmbedBuilder()
         .setTitle(alliance.name)
-        .setColor('Random');
-
-        embed.setDescription(`*Alliance in the ${pCrusade.name}*`);
+        .setColor('Random')
+        .setDescription(`*Alliance in the ${pCrusade.name}*`);
         
         let forcesStr = '';
         let players = [];
