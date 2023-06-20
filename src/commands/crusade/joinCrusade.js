@@ -16,7 +16,6 @@ module.exports = {
         }
         await interaction.deferReply();
         const user = interaction.options.getUser('user') || interaction.user;
-        const member = await interaction.guild.members.fetch(user.id);
         var crusade;
         try{
             crusade = await Crusade.findOne({name: interaction.options.get('crusade-name').value, guildID: interaction.guildId});

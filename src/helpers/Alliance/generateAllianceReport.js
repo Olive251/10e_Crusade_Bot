@@ -1,15 +1,13 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
 const {Alliance, OOB, Crusade} = require('../../data/schemas');
+const getUserInfo = require('../getUserInfo');
 
 module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
 
     let winCt = 0;
     let lossCt = 0;
-    console.log(allianceId);
 
     try {
-        // let alliance = await Alliance.findOne({_id: allianceId});
-        // if(!alliance) throw(`Unable to get alliance from DB`);
 
         let pCrusade = await Crusade.findOne({_id: crusadeId});
         var alliance;
@@ -31,28 +29,30 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
         if (alliance.forces && alliance.forces.length >= 1){
             for (const oobId of alliance.forces){
             
-                let oob = OOB.findOne({_id: oobId});
+                let oob = await OOB.findOne({_id: oobId});
     
                 if (!oob) throw('Failed to get Order of Battle from DB');
     
                 winCt += oob.tally.w;
-                lossCt += oob.tall.l;
-                players.push(oob.userID);
+                lossCt += oob.tally.l;
+
+                let player = await getUserInfo(oob.userID, interaction.guild);
+                players.push(player.user.id);
     
-                forcesStr += `- ${oob.name} -- W:${oob.tally.w} L:${oob.tally.l}\n`;
+                forcesStr += `- ${oob.name}  |  W:${oob.tally.w} L:${oob.tally.l}  |  *@${player.nickname || player.user.username}*\n`;
             }
         }
 
         if (forcesStr.length > 0){
             embed.addFields(
-            {name: 'Forces Involved:', value: forcesStr, inline: true},
-            {name: 'Total Victories/Defeats', value: `W:${winCt} L:${lossCt}`, inline:true},
+            {name: 'Total Victories/Defeats', value: `W:${winCt} L:${lossCt}`, inline:false},
+            {name: 'Forces Involved:', value: forcesStr, inline: true},  
             )
         ;}
         else {
             embed.addFields(
-                {name: 'Forces Involved', value: '*No forces involved yet...*', inline: true},
                 {name: 'Total Victories/Defeats', value: `W:${winCt} L:${lossCt}`, inline: true},
+                {name: 'Forces Involved', value: '*No forces involved yet...*', inline: true},
             )
         }
 
@@ -60,7 +60,18 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
         if (buttonsOn){
             const optRow = new ActionRowBuilder();
 
-            if (!players.includes(interaction.user)){
+            let alreadyJoined = false;
+            for (userId of players){
+
+                iUser = `${interaction.user}`;
+                iUser = iUser.substr(2, iUser.length-3);
+
+                if (iUser == userId){
+                    alreadyJoined = true;
+                }
+            }
+
+            if (!alreadyJoined){
                 optRow.addComponents(
                     new ButtonBuilder()
                     .setLabel(`Join Alliance`)
@@ -69,10 +80,16 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
                 )
             }
             else {
+                optRow.addComponents(
+                    new ButtonBuilder()
+                    .setLabel(`Add Order`)
+                    .setStyle(ButtonStyle.Success)
+                    .setCustomId(`join-alliance_${crusadeId}_${alliance._id}`)
+                )
 
                 optRow.addComponents(
                     new ButtonBuilder()
-                    .setLabel(`Leave Alliance`)
+                    .setLabel(`Remove Order`)
                     .setStyle(ButtonStyle.Danger)
                     .setCustomId(`leave-alliance_${crusadeId}_${alliance._id}`)
                 )

@@ -1,6 +1,6 @@
 const {Crusade} = require('../../../data/schemas.js');
 const addUserToCrusade = require('../../../helpers/addUserToCrusade.js');
-const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
 
 
 module.exports = async (interaction) => {

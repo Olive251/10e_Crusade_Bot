@@ -1,6 +1,6 @@
-const {Crusade, Alliance, OOB} = require('../../../data/schemas.js');
+const {Crusade, OOB, Alliance} = require('../../../data/schemas.js');
 const addOobToAlliance = require('../../../helpers/Alliance/addOobToAlliance.js');
-const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder}  = require ('discord.js');
+const {ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder}  = require ('discord.js');
 
 module.exports = async (interaction) => {
     if (!interaction.isButton()) return;
@@ -41,11 +41,12 @@ module.exports = async (interaction) => {
         }
         else {
             for (const oob of openOobs){
-                if (!oob.allianceMembership){
+                let val = `join-alliance_${oob._id}_${alliance._id}_${pCrusade._id}`;
+                if (!oob.allianceMembership || oob.allianceMembership.length < 1){
                     slct.addOptions(
                         new StringSelectMenuOptionBuilder()
                         .setLabel(`${oob.name}`)
-                        .setValue(`join-alliance_${oob._id}`)
+                        .setValue(val)
                     )
                 }
             }
@@ -59,7 +60,7 @@ module.exports = async (interaction) => {
             new ButtonBuilder()
             .setLabel(`or create a new order of battle`)
             .setStyle(ButtonStyle.Secondary)
-            .setCustomId(`new-oob_`)
+            .setCustomId(`new-oob_${alliance._id}_${pCrusade._id}`)
         )
         
         interaction.reply({components: [slRow, nRow], ephemeral: true});

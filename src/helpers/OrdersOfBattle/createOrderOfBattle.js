@@ -1,6 +1,7 @@
 const {OOB} = require ('../../data/schemas.js');
+const addOobToAlliance = require('../Alliance/addOobToAlliance.js');
 
-module.exports = async (oobName, guildId, userId) => {
+module.exports = async (oobName, guildId, userId, allianceId=null, crusadeId=null) => {
 
     //TODO
     //Confirm OOB with same name doesn't already exist for user
@@ -14,6 +15,9 @@ module.exports = async (oobName, guildId, userId) => {
         requisitionPoints: 5,
         maxSize: 1000,
     })
+    if (allianceId && crusadeId){
+        newOob.allianceMembership = allianceId;
+    }
 
     try{
 
@@ -28,10 +32,12 @@ module.exports = async (oobName, guildId, userId) => {
         if(oobCheck){
             console.log('OOB with this name already registered to user');
             return false;
-            //TODO, add some sort of return value to indicate this specific error
         }
 
-        await newOob.save();
+        newOob = await newOob.save();
+        if (allianceId && crusadeId){
+            await addOobToAlliance(newOob._id, allianceId, crusadeId);
+        }
         return true;
     } catch (err) {
         console.log(`Error creating Order of Battle\n${err}`);

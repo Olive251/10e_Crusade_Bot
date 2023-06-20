@@ -1,4 +1,3 @@
-const {} = require('discord.js')
 const addAllianceToCrusade = require('../../../helpers/addAllianceToCrusade.js');
 
 module.exports = async (interaction) => {
