@@ -18,13 +18,7 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         .setCustomId('unit-select')
         .setPlaceholder(`Select a unit to see details...`);
 
-        embed.addFields(
-            //{name: 'Win Tally', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
-            {name: 'Win Tally', value: `Wins: ${oob.tally.w} | Losses: ${oob.tally.l}`, inline: false},
-            {name: 'Requisition Points', value:`${oob.requisitionPoints}`, inline:true},
-            {name: 'Order Size', value:`0/${oob.maxSize}`, inline:true},
-        )
-
+        let oobSize = 0; //to hold sum of units crusade pts
         if (oob.units.length > 0){
             let units = '';
             for (const u of oob.units){
@@ -36,6 +30,8 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                     .setLabel(`${u.name} || ${u.type}`)
                     .setValue(`view-unit_${u._id}_${oob._id}`)
                 )
+
+                oobSize += u.crusadePoints;
             }
             embed.addFields(
                 {name: `Units`, value:`${units}`}
@@ -46,6 +42,14 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                 {name: 'Units', value: `This order of battle does not contain any units...`}
             );
         }
+
+        //main embed body
+        embed.addFields(
+            //{name: 'Win Tally', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
+            {name: 'Win Tally', value: `Wins: ${oob.tally.w} | Losses: ${oob.tally.l}`, inline: false},
+            {name: 'Requisition Points', value:`${oob.requisitionPoints}`, inline:true},
+            {name: 'Order Size', value:`${oobSize}/${oob.maxSize}`, inline:true},
+        )
 
         if (oob.loreDoc){
             embed.addFields({name: 'Lore Doc', value:`${oob.loreDoc}`});
