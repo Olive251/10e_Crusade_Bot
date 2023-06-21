@@ -22,6 +22,9 @@ module.exports = async (uName, uType, uPoints, oobId) => {
             {new: true}
         );
         
+        if (oob){
+            return {result: true, oobName: oob.name};
+        } else return {result: false};
         
 
     }

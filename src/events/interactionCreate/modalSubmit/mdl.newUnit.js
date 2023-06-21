@@ -14,7 +14,12 @@ module.exports = async (interaction) => {
 
     uPoints = parseInt(uPoints);
 
-    await newUnit(uName, uType, uPoints, cId[1]);
+    let result = await newUnit(uName, uType, uPoints, cId[1]);
 
-
+    if (result.result){
+        interaction.reply({content: `✅ ${uName} was sucesfully added to ${result.oobName}`})
+    }
+    else {
+        interaction.reply(`++There was an issue communing with the machine spirits++`);
+    }
 }
