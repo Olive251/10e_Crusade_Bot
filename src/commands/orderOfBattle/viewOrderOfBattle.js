@@ -26,11 +26,10 @@ module.exports = {
         var msg;
 
         if (oob){
-            msg = 'test: ' + oob.name + `\n${interaction.member.displayName}`;
             await genReport(interaction, oob);
         }
         else {
-            msg = `Unable to find ${name} in your Orders of Battle`;
+            interaction.editReply(`❗ Unable to find ${name} in your orders of battle...`)
         }
     }
     

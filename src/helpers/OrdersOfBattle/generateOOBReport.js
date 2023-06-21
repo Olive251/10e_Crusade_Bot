@@ -1,4 +1,4 @@
-const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle}  = require ('discord.js');
+const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, StringSelectMenuOptionBuilder}  = require ('discord.js');
 
 module.exports = async (interaction, oob, buttonsOn=true) => {
     if (!oob){
@@ -10,7 +10,13 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         const embed = new EmbedBuilder()
         .setTitle(oob.name)
         .setDescription(`${interaction.member}'s Order of Battle`)
-        .setColor(`Random`)
+        .setColor(`Random`);
+
+        //Add select menu to view units in oob
+        let slRow = new ActionRowBuilder();
+        let slct = new StringSelectMenuBuilder()
+        .setCustomId('unit-select')
+        .setPlaceholder(`Select a unit to see details...`);
 
         embed.addFields(
             //{name: 'Win Tally', value: `Wins: ${oob.tally.w} | Draws: ${oob.tally.d} | Losses: ${oob.tally.l}`, inline: false},
@@ -22,7 +28,14 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         if (oob.units.length > 0){
             let units = '';
             for (const u of oob.units){
-                units += `**${u.name}** | Rank: ${u.rank} | Crusade Points: ${u.crusadePoints}`
+                units += `- **${u.name}** | ${u.type}\n`;
+
+                //adding to slct menu
+                slct.addOptions(
+                    new StringSelectMenuOptionBuilder()
+                    .setLabel(`${u.name} || ${u.type}`)
+                    .setValue(`view-unit_${u._id}_${oob._id}`)
+                )
             }
             embed.addFields(
                 {name: `Units`, value:`${units}`}
@@ -30,7 +43,7 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         }
         else {
             embed.addFields(
-                {name: 'Units', value: `Units not yet implemented...`}
+                {name: 'Units', value: `This order of battle does not contain any units...`}
             );
         }
 
@@ -76,8 +89,11 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId(`remove-unit_${oob._id}`)
             )
+            
+            slRow.addComponents(slct);
+
     
-            interaction.editReply({embeds: [embed], components: [modifyTallyRow, unitsRow]});
+            interaction.editReply({embeds: [embed], components: [slRow, modifyTallyRow, unitsRow]});
         }
         else {
             interaction.editReply({embeds: [embed]});
