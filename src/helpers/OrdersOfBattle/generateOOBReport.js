@@ -20,9 +20,13 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         )
 
         if (oob.units.length > 0){
+            let units = '';
+            for (const u of oob.units){
+                units += `**${u.name}** | Rank: ${u.rank} | Crusade Points: ${u.crusadePoints}`
+            }
             embed.addFields(
-                {name: 'Units', value: `Units not yet implemented...`}
-            );
+                {name: `Units`, value:`${units}`}
+            )
         }
         else {
             embed.addFields(
