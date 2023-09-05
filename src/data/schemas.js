@@ -1,6 +1,11 @@
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema
 
+const enhancementSchema = new Schema({
+    name: String,
+    pointsValue: Number,
+})
+
 const unitSchema = new Schema({
     name: String,
     type:String,
@@ -12,6 +17,7 @@ const unitSchema = new Schema({
         type: String,
         enum: ['Battle-Ready', 'Blooded', 'Battle-Hardened', 'Heroic', 'Legendary']
     },
+    enhancement: enhancementSchema,
 })
 
 const orderOfBattleSchema = new Schema({
