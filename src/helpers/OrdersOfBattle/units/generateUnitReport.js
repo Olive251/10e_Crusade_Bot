@@ -42,10 +42,17 @@ module.exports = async (interaction, unitId, oobId) => {
         .setLabel(`Update Exp`)
         .setStyle(ButtonStyle.Primary)
         .setCustomId(`update-exp_${unitId}_${oobId}`),
+
         new ButtonBuilder()
-        .setLabel(`Update Points`)
+        .setLabel(`Update Base Points`)
         .setStyle(ButtonStyle.Primary)
-        .setCustomId(`update-points_${unitId}_${oobId}`),
+        .setCustomId(`update-base-points-value_${unitId}_${oobId}`),
+
+        new ButtonBuilder()
+        .setLabel(`Update Crusade Points`)
+        .setStyle(ButtonStyle.Primary)
+        .setCustomId(`update-crusade-points_${unitId}_${oobId}`),
+        
         new ButtonBuilder()
         .setLabel(`Update Kills`)
         .setStyle(ButtonStyle.Primary)
@@ -63,8 +70,6 @@ module.exports = async (interaction, unitId, oobId) => {
         .setStyle(ButtonStyle.Danger)
         .setCustomId(`-1-kill_${unitId}_${oobId}`),
     )
-
-
 
     interaction.editReply({embeds: [embed], components: [ar, ar2]});
 }

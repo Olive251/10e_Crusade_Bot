@@ -12,7 +12,6 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         .setDescription(`${interaction.member}'s Order of Battle`)
         .setColor(`Random`);
 
-        //Add select menu to view units in oob
         let slRow = new ActionRowBuilder();
         let slct = new StringSelectMenuBuilder()
         .setCustomId('unit-select')
@@ -20,11 +19,14 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
 
         let oobSize = 0; //to hold sum of units crusade pts
         if (oob.units.length > 0){
+             //Add select menu to view units in oob
+
             let units = '';
             for (const u of oob.units){
                 units += `- **${u.name}** | ${u.type}\n`;
 
                 //adding to slct menu
+                console.log('adding select menu')
                 slct.addOptions(
                     new StringSelectMenuOptionBuilder()
                     .setLabel(`${u.name} || ${u.type}`)
@@ -39,8 +41,13 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
         }
         else {
             embed.addFields(
-                {name: 'Units', value: `This order of battle does not contain any units...`}
+                {name: 'Units', value: `No units in this order of battle...`}
             );
+            slct.addOptions(
+                new StringSelectMenuOptionBuilder()
+                .setLabel(`No units in this order of battle...`)
+                .setValue(`no-units`)
+            )
         }
 
         //main embed body

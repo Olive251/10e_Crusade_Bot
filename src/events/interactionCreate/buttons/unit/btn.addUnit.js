@@ -1,4 +1,3 @@
-const newUnit = require('../../../../helpers/OrdersOfBattle/units/newUnit');
 const {ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle} = require('discord.js');
 
 module.exports = async (interaction) => {
@@ -32,7 +31,6 @@ module.exports = async (interaction) => {
         .setMaxLength(3)
         .setRequired(true);
 
-        console.log('check')
         let ar0 = new ActionRowBuilder().addComponents(uNameInput);
         let ar1 = new ActionRowBuilder().addComponents(uUnitType);
         let ar2 = new ActionRowBuilder().addComponents(uPointsValue);
