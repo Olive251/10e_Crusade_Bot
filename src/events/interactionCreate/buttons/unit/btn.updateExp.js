@@ -37,7 +37,8 @@ module.exports = async (interaction) => {
 
     let uExpChange = new TextInputBuilder()
     .setCustomId(`xp-change`)
-    .setLabel('Experience difference...')
+    .setLabel('Update Exp (remove exp w/ negative number)')
+    .setPlaceholder('Enter the amount of exp to add/remove')
     .setStyle(TextInputStyle.Short)
     .setMaxLength(3)
     .setRequired(true);
@@ -48,20 +49,23 @@ module.exports = async (interaction) => {
     await interaction.showModal(modal);
 
     client.on('interactionCreate', async (modalSubmit) => {
-        if (!modalSubmit.isModalSubmit()) return;
+        if (!modalSubmit.isModalSubmit) return;
         if (modalSubmit.customId != `update-exp_${oobId}_${unitId}`) return;
+        await modalSubmit.deferReply({ephemeral: true});
+
         // Get the data entered by the user
         let xpDif = modalSubmit.fields.getTextInputValue("xp-change");
         xpDif = parseInt(xpDif);
 
         let result = await updateExp(oobId, unitId, xpDif);
         if (result.r){
-            let msg = `**${result.unit.name}'s experience has been updated by ${xpDif} experience points.**\n\n*-Current exp: ${result.unit.xp}*\n*-Current rank: ${result.unit.rank}*`;
-            modalSubmit.reply({content: msg, ephemeral: true});
+            
+            let message = `**${result.unit.name}'s experience has been updated by ${xpDif} experience points.**\n*-Current exp: ${result.unit.xp}*\n*-Current rank: ${result.unit.rank}*`;
+            modalSubmit.editReply({content: message, ephemeral: true});
             return;
         }
         else {
-            modalSubmit.reply({content: `++There was a problem updating the experience++`, ephemeral: true});
+            modalSubmit.editReply({content: `++There was a problem updating the experience++`, ephemeral: true});
             return;
         }
     });

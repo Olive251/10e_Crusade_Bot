@@ -2,7 +2,6 @@ const { Unit, OOB} = require ('../../../data/schemas.js');
 // const Mongoose = require('mongoose');
 
 module.exports = async (oobId, unitId, xpDif) => {
-
     try{
         let oob = await OOB.findById(oobId);
         var unit;

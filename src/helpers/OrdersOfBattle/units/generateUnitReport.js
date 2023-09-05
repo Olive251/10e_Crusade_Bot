@@ -62,6 +62,11 @@ module.exports = async (interaction, unitId, oobId) => {
 
     const ar2 = new ActionRowBuilder()
     .addComponents(
+        // new ButtonBuilder()
+        // .setLabel(`Mark for Greatness`)
+        // .setStyle(ButtonStyle.Success)
+        // .setCustomId(`mfg_${unitId}_${oobId}`),
+
         new ButtonBuilder()
         .setLabel(`+1 Kill`)
         .setStyle(ButtonStyle.Primary)
