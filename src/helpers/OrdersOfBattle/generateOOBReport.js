@@ -26,7 +26,6 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                 units += `- **${u.name}** | ${u.type}\n`;
 
                 //adding to slct menu
-                console.log('adding select menu')
                 slct.addOptions(
                     new StringSelectMenuOptionBuilder()
                     .setLabel(`${u.name} || ${u.type}`)
@@ -75,14 +74,17 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                 //     .setLabel('Tally Draw')
                 //     .setStyle(ButtonStyle.Primary)
                 //     .setCustomId(`add_draw_${oob._id}`),
+
                 new ButtonBuilder()
                     .setLabel('Tally Loss')
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId(`add_loss_${oob._id}`),
+
                 new ButtonBuilder()
                     .setLabel('+1 RP')
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId(`add_rp_${oob._id}`),
+
                 new ButtonBuilder()
                     .setLabel('-1 RP')
                     .setStyle(ButtonStyle.Primary)
@@ -95,6 +97,7 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                     .setLabel('Add Unit')
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId(`add-unit_${oob._id}`),
+
                 new ButtonBuilder()
                     .setLabel('Remove Unit')
                     .setStyle(ButtonStyle.Primary)

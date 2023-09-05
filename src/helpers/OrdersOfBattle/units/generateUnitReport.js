@@ -48,10 +48,11 @@ module.exports = async (interaction, unitId, oobId) => {
         .setStyle(ButtonStyle.Primary)
         .setCustomId(`update-base-points-value_${unitId}_${oobId}`),
 
-        new ButtonBuilder()
-        .setLabel(`Update Crusade Points`)
-        .setStyle(ButtonStyle.Primary)
-        .setCustomId(`update-crusade-points_${unitId}_${oobId}`),
+        // Probably not necessary
+        // new ButtonBuilder()
+        // .setLabel(`Update Crusade Points`)
+        // .setStyle(ButtonStyle.Primary)
+        // .setCustomId(`update-crusade-points_${unitId}_${oobId}`),
         
         new ButtonBuilder()
         .setLabel(`Update Kills`)
@@ -65,6 +66,7 @@ module.exports = async (interaction, unitId, oobId) => {
         .setLabel(`+1 Kill`)
         .setStyle(ButtonStyle.Primary)
         .setCustomId(`+1-kill_${unitId}_${oobId}`),
+        
         new ButtonBuilder()
         .setLabel(`-1 Kill`)
         .setStyle(ButtonStyle.Danger)
