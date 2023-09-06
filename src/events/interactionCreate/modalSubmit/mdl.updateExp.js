@@ -7,7 +7,6 @@ module.exports = async (modalSubmit) => {
     await modalSubmit.deferReply({ephemeral: true});
 
     // Get the data entered by the user
-    console.log(modalSubmit);
     let xpDif = modalSubmit.fields.getTextInputValue("xp-change");
     xpDif = parseInt(xpDif);
 
