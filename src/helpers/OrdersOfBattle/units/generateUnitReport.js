@@ -30,7 +30,7 @@ module.exports = async (interaction, unitId, oobId) => {
     .addFields(
         {name: `Unit Type`, value: `${unit.type}`, inline: true},
         {name: `Base Points Value`, value: `${unit.pointsValue}`, inline: true},
-        {name: `Rank`, value: `${u.rank}`, inline: false},
+        {name: `Rank`, value: `${unit.rank}`, inline: false},
         {name: `Experience Points`, value: `${unit.xp}`, inline: true},
         {name: `Crusade Points`, value: `${unit.crusadePoints}`,inline: true},
         {name: `Kill Count`, value: `${unit.killCount}`, inline: false},
@@ -78,5 +78,18 @@ module.exports = async (interaction, unitId, oobId) => {
         .setCustomId(`-1-kill_${unitId}_${oobId}`),
     )
 
-    interaction.editReply({embeds: [embed], components: [ar, ar2]});
+    const ar3 = new ActionRowBuilder()
+    .addComponents(
+        new ButtonBuilder()
+        .setLabel(`Add Enhancement`)
+        .setStyle(ButtonStyle.Primary)
+        .setCustomId(`add-enhancement_${unitId}_${oobId}`),
+
+        new ButtonBuilder()
+        .setLabel(`Remove Enhancement`)
+        .setStyle(ButtonStyle.Danger)
+        .setCustomId(`rm-enhancement_${unitId}_${oobId}`),
+    );
+
+    interaction.editReply({embeds: [embed], components: [ar, ar2, ar3]});
 }
