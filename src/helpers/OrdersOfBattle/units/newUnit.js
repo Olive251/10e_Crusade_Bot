@@ -1,9 +1,6 @@
 const {OOB, Unit} = require('../../../data/schemas')
 
 module.exports = async (uName, uType, uPoints, oobId) => {
-
-    console.log(`new unit`);
-
     try{
         let nUnit = new Unit({
             name: uName,

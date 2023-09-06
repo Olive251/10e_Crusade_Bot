@@ -1,6 +1,7 @@
 const updateKills = require('../../../helpers/OrdersOfBattle/units/updateKills.js')
 
 module.exports = async (interaction) => {
+    if (!interaction.isModalSubmit()) return;
     if (!interaction.customId) return;
     if (!interaction.customId.startsWith(`update-kills-mdl_`)) return;
     await interaction.deferReply({ephemeral: true});

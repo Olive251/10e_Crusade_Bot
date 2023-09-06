@@ -5,9 +5,6 @@ module.exports = async (option, searchKey, guildId=null) => {
     switch(option){
         case 1: //user
             let oobs = await OOB.find({userID: searchKey, guildID: guildId})
-            // for (oob of oobs) {
-            //     console.log(oob.name);
-            // }
             return oobs;
         case 2: //crusade
             break;

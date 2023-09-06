@@ -4,7 +4,6 @@ module.exports = async (oobId, unitId, killDif) => {
 
     try{
         let oob = await OOB.findOne({_id: oobId});
-        console.log(oob);
         for (let u of oob.units){
             if (u._id == unitId){
                 u.killCount += killDif;

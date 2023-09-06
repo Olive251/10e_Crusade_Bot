@@ -6,7 +6,6 @@ module.exports = async (interaction) => {
     if (!interaction.customId.includes('new-unit_')) return;
 
     cId = interaction.customId.split('_');
-    console.log(cId);
 
     let uName = interaction.fields.getTextInputValue(`new-unit-name`);
     let uType = interaction.fields.getTextInputValue(`new-unit-type`);
