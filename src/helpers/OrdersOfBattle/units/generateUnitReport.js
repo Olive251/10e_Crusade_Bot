@@ -24,16 +24,19 @@ module.exports = async (interaction, unitId, oobId) => {
         return;
     }
 
+
+
     const embed = new EmbedBuilder()
     .setTitle(unit.name)
     .setColor(`Random`)
     .addFields(
         {name: `Unit Type`, value: `${unit.type}`, inline: true},
-        {name: `Base Points Value`, value: `${unit.pointsValue}`, inline: true},
-        {name: `Rank`, value: `${unit.rank}`, inline: false},
+        {name: `Rank`, value: `${unit.rank}`, inline: true},
+        {name: `Enhancements`, value: `${unit.enhancement.name}`, inline: false},
         {name: `Experience Points`, value: `${unit.xp}`, inline: true},
         {name: `Crusade Points`, value: `${unit.crusadePoints}`,inline: true},
         {name: `Kill Count`, value: `${unit.killCount}`, inline: false},
+        {name: `Base Points Value`, value: `${unit.pointsValue}`, inline: true},
     )
 
     const ar = new ActionRowBuilder()

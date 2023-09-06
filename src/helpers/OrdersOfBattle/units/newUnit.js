@@ -10,7 +10,10 @@ module.exports = async (uName, uType, uPoints, oobId) => {
             xp: 0,
             killCount: 0,
             rank: 'Battle-Ready',
-
+            enhancement: {
+                name: 'none',
+                pointsValue: 0,
+            }
         })
 
         let oob = await OOB.findOneAndUpdate(

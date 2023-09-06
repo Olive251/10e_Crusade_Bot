@@ -10,7 +10,7 @@ module.exports = async (interaction) => {
     let unitId = interaction.customId.split('_')[1];
 
     let modal = new ModalBuilder()
-    .setCustomId('add-enhancement-mdl_')
+    .setCustomId(`add-enhancement-mdl_${oobId}_${unitId}`)
     .setTitle(`Add Enhancement`)
 
     let eNameInput = new TextInputBuilder()
