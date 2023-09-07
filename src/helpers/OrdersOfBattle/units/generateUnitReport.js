@@ -94,5 +94,13 @@ module.exports = async (interaction, unitId, oobId) => {
         .setCustomId(`rm-enhancement_${unitId}_${oobId}`),
     );
 
-    interaction.editReply({embeds: [embed], components: [ar, ar2, ar3]});
+    const ar4 = new ActionRowBuilder()
+    .addComponents(
+        new ButtonBuilder()
+        .setLabel(`Delete Unit`)
+        .setStyle(ButtonStyle.Danger)
+        .setCustomId(`rm-unit_${unitId}_${oobId}`),
+    )
+
+    interaction.editReply({embeds: [embed], components: [ar, ar2, ar3, ar4]});
 }

@@ -94,14 +94,15 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
             const unitsRow = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setLabel('Add Unit')
-                    .setStyle(ButtonStyle.Primary)
-                    .setCustomId(`add-unit_${oob._id}`),
+                .setLabel('Add New Unit')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`add-unit_${oob._id}`),
 
-                new ButtonBuilder()
-                    .setLabel('Remove Unit')
-                    .setStyle(ButtonStyle.Primary)
-                    .setCustomId(`remove-unit_${oob._id}`)
+                // moving rm unit functionality to unit report
+                // new ButtonBuilder()
+                //     .setLabel('Remove Unit')
+                //     .setStyle(ButtonStyle.Primary)
+                //     .setCustomId(`remove-unit_${oob._id}`)
             )
             
             slRow.addComponents(slct);
