@@ -98,11 +98,10 @@ module.exports = async (interaction, oob, buttonsOn=true) => {
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId(`add-unit_${oob._id}`),
 
-                // moving rm unit functionality to unit report
-                // new ButtonBuilder()
-                //     .setLabel('Remove Unit')
-                //     .setStyle(ButtonStyle.Primary)
-                //     .setCustomId(`remove-unit_${oob._id}`)
+                new ButtonBuilder()
+                .setLabel('Update Order of Battle Size')
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId(`update-oob-size_${oob._id}`),
             )
             
             slRow.addComponents(slct);
