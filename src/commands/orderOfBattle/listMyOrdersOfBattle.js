@@ -20,6 +20,12 @@ module.exports = {
         .setTitle(`${player.nickname || interaction.user.username}'s Orders of Battle`)
         .setColor('Random')
 
+        if (oobs.length == 0){
+            embed.setDescription('You have no Orders of Battle')
+            await interaction.editReply({embeds: [embed]});
+            return;
+        }
+
         for (const oob of oobs){
             msg += `- ${oob.name}\n`
         }
