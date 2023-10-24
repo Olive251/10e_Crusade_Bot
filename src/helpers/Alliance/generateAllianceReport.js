@@ -31,7 +31,7 @@ module.exports = async (interaction, allianceId, crusadeId, buttonsOn=true) => {
                 let oob = await OOB.findOne({_id: oobId});
     
                 if (!oob){
-                    forcesStr += `- *error retreiving OoB {id: ${oobId}} from databse*`
+                    forcesStr += `- *error retreiving OoB {id: ${oobId}} from databse*\n`
                 }
                 else {
                     winCt += oob.tally.w;

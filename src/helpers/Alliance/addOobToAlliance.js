@@ -12,7 +12,7 @@ module.exports = async (oobId, allianceId, crusadeId) => {
             }
         }
         
-        let oob = await OOB.findOneAndUpdate({_id: oobId}, {allianceMembership: allianceId});
+        let oob = await OOB.findOneAndUpdate({_id: oobId}, {allianceMembership: allianceId}, {new: true});
 
         await Crusade.findOneAndUpdate({_id: crusadeId}, {alliances: crusade.alliances});
 

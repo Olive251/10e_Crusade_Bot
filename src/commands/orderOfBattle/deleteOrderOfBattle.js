@@ -17,7 +17,7 @@ module.exports = {
         try{
             let oobName = await interaction.options.get('order-name').value;
             let user = await interaction.user;
-            let result = await deleteOob(oobName, user);
+            let result = await deleteOob(oobName, user, interaction.guildId);
             if (result){
                 reply = `${oobName} sucesfully deleted.`
             } else {
