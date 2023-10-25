@@ -7,8 +7,10 @@ module.exports = async (option, searchKey, guildId=null) => {
             let oobs = await OOB.find({userID: searchKey, guildID: guildId})
             return oobs;
         case 2: //crusade
+        //TODO: get list of all users in crusade, then get all oobs for each user
             break;
         case 3: //guild
+        //TODO: get list of all users in guild, then get all oobs for each user
             break;
     }
 }

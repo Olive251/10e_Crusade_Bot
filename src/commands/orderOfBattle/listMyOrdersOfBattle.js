@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder} = require('discord.js');
+const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} = require('discord.js');
 const generateOOBsReport = require('../../helpers/OrdersOfBattle/generateOOBsList.js');
 const getUserInfo = require('../../helpers/getUserInfo');
 
@@ -30,11 +30,27 @@ module.exports = {
             msg += `- ${oob.name}\n`
         }
 
+        //select menu setup
+        let slRow = new ActionRowBuilder();
+
+        const slct = new StringSelectMenuBuilder()
+        .setCustomId('oob-list-select')
+        .setPlaceholder('Select an order of battle to see details...');
+
+        for (const oob of oobs){
+            slct.addOptions(
+                new StringSelectMenuOptionBuilder()
+                .setLabel(`${oob.name}`)
+                .setValue(`view-oob_${oob._id}`)
+            )
+        }
+       
+
         embed.addFields(
             {name: 'Orders of Battle', value: msg}
         )
 
-        await interaction.editReply({embeds: [embed]});
+        await interaction.editReply({embeds: [embed], components: [slRow.addComponents(slct)]});
         return;
 
     }
