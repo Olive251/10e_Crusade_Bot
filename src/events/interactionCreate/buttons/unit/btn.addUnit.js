@@ -31,10 +31,19 @@ module.exports = async (interaction) => {
         .setMaxLength(3)
         .setRequired(true);
 
+        let uWargearOptions = new TextInputBuilder()
+        .setCustomId('new-unit-wargear')
+        .setLabel('Unit wargear selection...')
+        .setStyle(TextInputStyle.Paragraph)
+        .setPlaceholder(`Enter wargear options separated by commas`)
+        .setRequired(true)
+        .setMaxLength(1000);
+
         let ar0 = new ActionRowBuilder().addComponents(uNameInput);
         let ar1 = new ActionRowBuilder().addComponents(uUnitType);
         let ar2 = new ActionRowBuilder().addComponents(uPointsValue);
-        modal.addComponents(ar0, ar1, ar2);
+        let ar3 = new ActionRowBuilder().addComponents(uWargearOptions);
+        modal.addComponents(ar0, ar1, ar2, ar3);
         await interaction.showModal(modal);
 
     try{

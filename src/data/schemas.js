@@ -18,6 +18,11 @@ const unitSchema = new Schema({
         enum: ['Battle-Ready', 'Blooded', 'Battle-Hardened', 'Heroic', 'Legendary']
     },
     enhancement: enhancementSchema,
+    wargearOptions: [
+        {name: String},
+        {_id: false}
+    ],
+
     // battleHonours: [],
 })
 

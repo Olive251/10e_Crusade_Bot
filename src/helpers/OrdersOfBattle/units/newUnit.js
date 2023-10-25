@@ -1,6 +1,6 @@
 const {OOB, Unit} = require('../../../data/schemas')
 
-module.exports = async (uName, uType, uPoints, oobId) => {
+module.exports = async (uName, uType, uPoints, uWargearOptions, oobId) => {
     try{
         let nUnit = new Unit({
             name: uName,
@@ -13,7 +13,8 @@ module.exports = async (uName, uType, uPoints, oobId) => {
             enhancement: {
                 name: 'none',
                 pointsValue: 0,
-            }
+            },
+            wargearOptions: uWargearOptions
         })
 
         let oob = await OOB.findOneAndUpdate(

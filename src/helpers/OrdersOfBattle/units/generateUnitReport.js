@@ -24,7 +24,14 @@ module.exports = async (interaction, unitId, oobId) => {
         return;
     }
 
-
+    //generate wargear string so it is displayed as bulleted list in embed
+    var wargearString = ``;
+    if (unit.wargearOptions) {
+        for (wargear of unit.wargearOptions){
+            wargearString += `- ${wargear.name}\n`;
+        }
+    }
+    else wargearString = `None`;
 
     const embed = new EmbedBuilder()
     .setTitle(unit.name)
@@ -32,11 +39,12 @@ module.exports = async (interaction, unitId, oobId) => {
     .addFields(
         {name: `Unit Type`, value: `${unit.type}`, inline: true},
         {name: `Rank`, value: `${unit.rank}`, inline: true},
-        {name: `Enhancements`, value: `${unit.enhancement.name}`, inline: false},
+        {name: `Enhancement`, value: `${unit.enhancement.name}`, inline: false},
         {name: `Experience Points`, value: `${unit.xp}`, inline: true},
         {name: `Crusade Points`, value: `${unit.crusadePoints}`,inline: true},
         {name: `Kill Count`, value: `${unit.killCount}`, inline: false},
         {name: `Base Points Value`, value: `${unit.pointsValue}`, inline: true},
+        {name: `Wargear Options`, value: `${wargearString}`, inline: false},
     )
 
     const ar = new ActionRowBuilder()

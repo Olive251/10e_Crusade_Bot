@@ -1,5 +1,4 @@
-const {SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder} = require('discord.js');
-const {OOB} = require('../../data/schemas');
+const {SlashCommandBuilder} = require('discord.js');
 const deleteOob = require('../../helpers/OrdersOfBattle/deleteOrderOfBattle');
 
 module.exports = {
